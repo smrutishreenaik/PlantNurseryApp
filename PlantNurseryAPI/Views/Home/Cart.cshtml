@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PlantNurseryAPI.Models.NurseryItems>
+
+@{
+    ViewBag.Title = "Cart";
+}
+
+<div class="container" style="margin:70px">
+    <h2>CART</h2>
+
+    <h4>@Html.ActionLink("Empty cart", "EmptyCart")</h4>
+
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+            </tr>
+        </thead>
+        @{
+            double totalPrice = 0;
+        }
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                </tr>
+                totalPrice += item.Price * item.Amount;
+            }
+        </tbody>
+    </table>
+
+    <h4>
+        Total Price : @totalPrice
+    </h4>
+</div>

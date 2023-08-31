@@ -1,0 +1,65 @@
+﻿@model IEnumerable<PlantNurseryAPI.Models.NurseryItems>
+
+@{
+    ViewBag.Title = "NurseryItemList";
+}
+
+<div class="container" style="margin:70px">
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @if (item.Amount == 0)
+                        {
+                            <div>Out of Stock</div>
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+                            {
+                                <input type="number" name="Amount" placeholder="1" min="1" max="@item.Amount" id="itemAmount" value="1" />
+                                <input type="hidden" name="ItemId" value="@item.NurseryID" />
+                                <input type="hidden" name="ItemTypeId" value="@item.ItemType.ItemTypeID" />
+                                <input type="submit" value="Add to Cart" />
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (ViewBag.SuccessMessage != "")
+    {
+        <div class="flash alert alert-success"> <div >@ViewBag.SuccessMessage</div></div>
+    }
+</div>
+
+<script>
+    window.setTimeout(function () {
+        $(".flash").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 2000);
+</script>
+

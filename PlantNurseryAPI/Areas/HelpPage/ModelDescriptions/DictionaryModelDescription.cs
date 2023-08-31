@@ -1,0 +1,6 @@
+namespace PlantNurseryAPI.Areas.HelpPage.ModelDescriptions
+{
+    public class DictionaryModelDescription : KeyValuePairModelDescription
+    {
+    }
+}

@@ -1,0 +1,17 @@
+﻿@model IEnumerable<PlantNurseryAPI.Models.ItemType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container" style="margin:70px">
+    <h2>ITEM TYPE</h2>
+    <div class="row" >
+        @foreach(var item in Model)
+            {
+                <div class="col-lg-1 h4" style="margin:30px">
+            @Html.ActionLink(@Html.DisplayFor(modelItem => item.Name).ToString(), "NurseryItemList", new { id = item.ItemTypeID }) 
+                </div>
+            }
+    </div>
+</div>
