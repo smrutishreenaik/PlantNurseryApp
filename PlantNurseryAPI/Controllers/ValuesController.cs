@@ -27,12 +27,22 @@ namespace PlantNurseryAPI.Controllers
         [System.Web.Http.HttpGet]
         public IHttpActionResult GetNurseryItemsByType(int id )
         {
-            var NurseryItems = _db.GetListOfItems().Where(items => items.ItemTypeID == id).FirstOrDefault().Items;
-            if (NurseryItems == null)
+            
+            try
+            {
+                var nurseryItems = _db.GetListOfItems().Where(items => items.ItemTypeID == id).FirstOrDefault().Items;
+                if (nurseryItems == null)
+                {
+                    return NotFound();
+                }
+                return Ok(nurseryItems);
+            }
+            catch
             {
                 return NotFound();
             }
-            return Ok(NurseryItems);
+            
+            
         }
         
         [System.Web.Http.HttpPost]
